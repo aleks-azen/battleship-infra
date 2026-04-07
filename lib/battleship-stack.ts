@@ -16,8 +16,27 @@ export class BattleshipStack extends cdk.Stack {
 
     const storage = new GameStorage(this, 'GameStorage', { stageSuffix });
 
-    const api = new GameApi(this, 'GameApi', { stageSuffix });
-
     const hosting = new FrontendHosting(this, 'FrontendHosting', { stageSuffix });
+
+    const api = new GameApi(this, 'GameApi', {
+      stageSuffix,
+      gamesTable: storage.table,
+      frontendUrl: hosting.websiteUrl,
+    });
+
+    new cdk.CfnOutput(this, 'ApiUrl', {
+      value: api.api.url,
+      description: 'API Gateway endpoint URL',
+    });
+
+    new cdk.CfnOutput(this, 'WebsiteUrl', {
+      value: hosting.websiteUrl,
+      description: 'S3 website endpoint URL',
+    });
+
+    new cdk.CfnOutput(this, 'WebsiteBucketName', {
+      value: hosting.bucket.bucketName,
+      description: 'S3 bucket name for frontend upload',
+    });
   }
 }

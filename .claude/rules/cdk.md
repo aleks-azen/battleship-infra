@@ -1,3 +1,10 @@
+---
+paths:
+  - "lib/**/*.ts"
+  - "bin/**/*.ts"
+  - "test/**/*.ts"
+---
+
 # CDK Rules — battleship-infra
 
 ## Construct Composition
