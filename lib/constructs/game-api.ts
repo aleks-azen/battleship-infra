@@ -31,6 +31,8 @@ export class GameApi extends Construct {
       handler: 'co.amazensolutions.battleship.handler.BattleshipHandler::handleRequest',
       memorySize: 512,
       timeout: cdk.Duration.seconds(30),
+      reservedConcurrentExecutions: 1,
+      logGroup,
       environment: {
         GAMES_TABLE: props.gamesTable.tableName,
       },
